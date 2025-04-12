@@ -1,0 +1,11 @@
+services:
+  life-short:
+    image: wikimax/short
+    restart: always
+    networks:
+      - toastcie
+
+networks:
+  toastcie:
+    external:
+      name: toastcie-net
