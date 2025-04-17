@@ -3,9 +3,9 @@
     <section class="section" id="form1" >
         <form @submit.prevent="fromf1tof2">
             <div class="birth-fields">
-                <input type="number" value="10" placeholder="Day" min="1" max="31" required />
-                <input type="number" value="10" placeholder="Month" min="1" max="12" required />
-                <input type="number" value="2000" placeholder="Year" min="1900" max="2025" required />
+                <input type="number" v-model="day" placeholder="Day" min="1" max="31" required />
+                <input type="number" v-model="month" placeholder="Month" min="1" max="12" required />
+                <input type="number" v-model="year" placeholder="Year" min="1900" max="2024" required />
             </div>
             <button type="submit">Next</button>
         </form>
@@ -13,7 +13,7 @@
 
     <!-- FORM 2: Gender -->
     <section class="section" id="form2">
-        <form>
+        <form @submit.prevent="fromf2tof3">
             <div class="gender-options">
                 <label>
                 <input type="radio" name="gender" value="male"/>
@@ -34,7 +34,7 @@
 
     <!-- FORM 3: Region -->
     <section class="section" id="form3">
-        <form>
+        <form @submit.prevent="fromf3tomento">
             <select required>
                 <option value="europe" selected>Europe</option>
                 <option value="north-america">North America</option>
@@ -52,20 +52,44 @@
 <script setup>
 
 //user defined values
-let year = 2024
-let month = 0
-let day = 10
+let year = 2023
+let month = 1
+let day = 13
 
 let livespan = 85;
 
 //forms
 function fromf1tof2(){
     console.log("form1 to form2");
+    
+    firstYearWeekCount.value = calculatefirstYearWeekCount(year, month, day);
+    fullYearCount.value = calculateFullYearCount(year);
+    lastYearWeekCount.value = calculateLastYearWeekCount();
+
+    generateGridFromValue();
+
+    smoothScrollTo("memento-mori");
+}
+
+function fromf2tof3(){
+    console.log("form1 to form2");
     //handle values
 
-    //set anchor to form2 
-    let form1 = document.getElementById("form1");
-    form1.classList.add("hidden");
+    smoothScrollTo("form3");
+}
+
+function fromf3tomento(){
+    console.log("form1 to form2");
+    //handle values
+
+    smoothScrollTo("memento-mori");
+}
+
+function smoothScrollTo(elementId) {
+    const element = document.getElementById(elementId);
+    if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+    }
 }
 
 //calculated values
@@ -177,7 +201,7 @@ function generateGridFromValue(value){
     for(let i = curYearpassed; i < livespan; i++){
         let yearColumn = document.createElement("div");
         yearColumn.className = "year-column";
-        let maxWeek = isYearLeap(year + i) ? 53 : 52;
+        let maxWeek = isYearLeap(year + i + 1) ? 53 : 52;
         for(let j = 0; j < maxWeek; j++){
             yearColumn.prepend(GENERATE_FUTUREBOX());
         }
@@ -189,11 +213,7 @@ function generateGridFromValue(value){
 }
 
 onMounted(() => {
-    firstYearWeekCount.value = calculatefirstYearWeekCount(year, month, day);
-    fullYearCount.value = calculateFullYearCount(year);
-    lastYearWeekCount.value = calculateLastYearWeekCount();
-
-    generateGridFromValue();
+    
 });
 
 </script>
