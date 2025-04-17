@@ -8,11 +8,5 @@ html, body {
     height: 100%;
     font-family: sans-serif;
     background: #ffffff;
-}
-
-/*body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     overflow: hidden;
-} */
+}
