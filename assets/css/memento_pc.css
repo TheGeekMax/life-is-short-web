@@ -1,0 +1,36 @@
+.grid {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    padding: 1rem;
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+}
+
+.year-column {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin: 0 1px;
+    flex-shrink: 0;
+}
+
+.week {
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    background-color: transparent;
+}
+
+.week.past {
+    background-color: #111827; /* dark blue-black */
+}
+
+.week.future {
+    background-color: #d1d5db; /* gray */
+}
+
+.week.invisible {
+    background-color: transparent;
+}
