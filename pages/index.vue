@@ -36,8 +36,12 @@
     <section class="section" id="form3">
         <form @submit.prevent="fromf3tomento">
             <select required>
-                <option value="europe" selected>Europe</option>
-                <option value="north-america">North America</option>
+                <option value="Europe" selected>Europe</option>
+                <option value="North-America">North America</option>
+                <option value="South-America">South America</option>
+                <option value="Africa">Africa</option>
+                <option value="Asia">Asia</option>
+                <option value="Oceania">Oceania</option>
             </select>
             <button type="submit">Show Calendar</button>
         </form>
@@ -51,6 +55,39 @@
 
 <script setup>
 
+const MAX_LIFESPAN_BY_REGION_AND_GENRE = {
+    "Africa": {
+        "male": 63,
+        "female": 67,
+        "other": 65
+    },
+    "Asia": {
+        "male": 72,
+        "female": 76,
+        "other": 74
+    },
+    "Europe": {
+        "male": 77,
+        "female": 83,
+        "other": 80
+    },
+    "North-America": {
+        "male": 77,
+        "female": 82,
+        "other": 80
+    },
+    "South-America": {
+        "male": 73,
+        "female": 79,
+        "other": 76
+    },
+    "Oceania": {
+        "male": 72,
+        "female": 77,
+        "other": 75
+    }
+}
+
 //user defined values
 let year = 2023
 let month = 1
@@ -62,25 +99,35 @@ let livespan = 85;
 function fromf1tof2(){
     console.log("form1 to form2");
     
-    firstYearWeekCount.value = calculatefirstYearWeekCount(year, month, day);
-    fullYearCount.value = calculateFullYearCount(year);
-    lastYearWeekCount.value = calculateLastYearWeekCount();
+    
 
-    generateGridFromValue();
-
-    smoothScrollTo("memento-mori");
+    smoothScrollTo("form2");
 }
 
 function fromf2tof3(){
-    console.log("form1 to form2");
+    console.log("form2 to form3");
     //handle values
+
+    
 
     smoothScrollTo("form3");
 }
 
 function fromf3tomento(){
-    console.log("form1 to form2");
+    console.log("form3 to memento");
     //handle values
+
+    let region = document.querySelector("#form3 select").value
+    let genre = document.querySelector("#form2 input[type='radio']:checked").value
+
+
+    livespan = MAX_LIFESPAN_BY_REGION_AND_GENRE[region][genre];
+    console.log("livespan: " + livespan);
+    firstYearWeekCount.value = calculatefirstYearWeekCount(year, month, day);
+    fullYearCount.value = calculateFullYearCount(year);
+    lastYearWeekCount.value = calculateLastYearWeekCount();
+
+    generateGridFromValue();
 
     smoothScrollTo("memento-mori");
 }
