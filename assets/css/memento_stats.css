@@ -1,0 +1,78 @@
+.stat-red {
+    border: 2px solid #ef4444;
+}
+.stat-yellow {
+    border: 2px solid #facc15;
+}
+.stat-blue {
+    border: 2px solid #3b82f6;
+}
+
+.week::after {
+    content: attr(data-tooltip);
+    position: relative;
+    top: 50%;
+    left: 130%;
+    transform: translateY(-50%);
+    padding: 10px 10px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: white;
+    border-radius: 10px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    z-index: 10;
+    white-space: nowrap;
+    background-color: black;
+}
+
+.week::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 120%;
+    transform: translateY(-50%);
+    border-width: 8px;
+    border-style: solid;
+    border-color: transparent black transparent transparent;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.week:hover::after,
+.week:hover::before {
+    opacity: 1;
+}
+
+/* Colored bubbles */
+.stat-red:hover::after {
+    background-color: #ef4444;
+}
+.stat-red:hover::before {
+    border-color: transparent #ef4444 transparent transparent;
+}
+
+.stat-yellow:hover::after {
+    background-color: #facc15;
+    color: black;
+}
+.stat-yellow:hover::before {
+    border-color: transparent #facc15 transparent transparent;
+}
+
+.stat-blue:hover::after {
+    background-color: #3b82f6;
+}
+.stat-blue:hover::before {
+    border-color: transparent #3b82f6 transparent transparent;
+}
+
+.week:not([data-tooltip])::after,
+.week[data-tooltip=""]::after,
+.week:not([data-tooltip])::before,
+.week[data-tooltip=""]::before {
+    display: none;
+}
